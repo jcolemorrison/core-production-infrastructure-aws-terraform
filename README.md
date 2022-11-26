@@ -10,9 +10,9 @@ This repo contains 10 branches representing different states of a baseline produ
 
 Everything is written using Infrastructure as Code via Terraform so that you can easily deploy and destroy the project.  Additionally, to customize and repurpose this infrastructure for your own projects you'd need to:
 
-- Rewrite the [`private.sh`]() and [`public.sh`]() scripts to install your software and dependencies.
-- Modify the [Load Balancer]() and [Target Groups]() to point to the right ports for your software.
-- Modify the [Security Groups]() to allow for correct port openings between your servers.
+- Rewrite the [`private.sh`](files/private.sh) and [`public.sh`](files/public.sh) scripts to install your software and dependencies.
+- Modify the [Load Balancer](ec2-lb.tf) and [Target Groups](ec2-lb.tf) to point to the right ports for your software.
+- Modify the [Security Groups](security-groups.tf) to allow for correct port openings between your servers.
 - Front your [Load Balancer's with a TLS certificate](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/create-https-listener.html).
 
 ## The Architecture Analogy
@@ -21,16 +21,16 @@ Everything is written using Infrastructure as Code via Terraform so that you can
 
 The Different States in Descending Order:
 
-1. [AWS Account: Landmass]()
-2. [VPC Network: The City]()
-3. [VPC Subnets: Districts]()
-4. [Route Tables: Roads]()
-5. [Internet Gateway: Highway On-Ramp]()
-6. [NAT Gateway: Connection to On-Ramp]()
-7. [Network ACLs: District Gates]()
-8. [Servers and Services: Buildings]()
-9. [Security Groups: Security Guards]()
-10. [AutoScaling Groups and Load Balancers: Franchises and Info Booths]()
+1. [AWS Account: Landmass](https://github.com/jcolemorrison/core-production-infrastructure-aws-terraform/tree/part-1)
+2. [VPC Network: The City](https://github.com/jcolemorrison/core-production-infrastructure-aws-terraform/tree/part-2)
+3. [VPC Subnets: Districts](https://github.com/jcolemorrison/core-production-infrastructure-aws-terraform/tree/part-3)
+4. [Route Tables: Roads](https://github.com/jcolemorrison/core-production-infrastructure-aws-terraform/tree/part-4)
+5. [Internet Gateway: Highway On-Ramp](https://github.com/jcolemorrison/core-production-infrastructure-aws-terraform/tree/part-5)
+6. [NAT Gateway: Connection to On-Ramp](https://github.com/jcolemorrison/core-production-infrastructure-aws-terraform/tree/part-6)
+7. [Network ACLs: District Gates](https://github.com/jcolemorrison/core-production-infrastructure-aws-terraform/tree/part-7)
+8. [Servers and Services: Buildings](https://github.com/jcolemorrison/core-production-infrastructure-aws-terraform/tree/part-8)
+9. [Security Groups: Security Guards](https://github.com/jcolemorrison/core-production-infrastructure-aws-terraform/tree/part-9)
+10. [AutoScaling Groups and Load Balancers: Franchises and Info Booths](https://github.com/jcolemorrison/core-production-infrastructure-aws-terraform/tree/part-10)
 
 The [Master Branch](https://github.com/jcolemorrison/core-production-infrastructure-aws-terraform) represents the final state of the repo and is equivalent to #10 from above.
 
