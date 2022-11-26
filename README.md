@@ -32,6 +32,8 @@ The Different States in Descending Order:
 9. [Security Groups: Security Guards]()
 10. [AutoScaling Groups and Load Balancers: Franchises and Info Booths]()
 
+The [Master Branch](https://github.com/jcolemorrison/core-production-infrastructure-aws-terraform) represents the final state of the repo and is equivalent to #10 from above.
+
 ## Getting Started
 
 ### Prerequisites
