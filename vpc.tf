@@ -73,3 +73,17 @@ resource "aws_route_table_association" "private" {
   subnet_id      = element(aws_subnet.private.*.id, count.index)
   route_table_id = aws_route_table.private.id
 }
+
+# Internet Gateway - The Highway On-Ramp
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.main.id
+
+  tags = { "Name" = "${local.project_tag}-igw" }
+}
+
+## Route to the Internet Gateway
+resource "aws_route" "public_internet_access" {
+  route_table_id         = aws_route_table.public.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_internet_gateway.igw.id
+}
