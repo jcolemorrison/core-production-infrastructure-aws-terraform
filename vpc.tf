@@ -41,3 +41,35 @@ resource "aws_subnet" "private" {
 
   tags = { "Name" = "${local.project_tag}-private-${data.aws_availability_zones.available.names[count.index]}" }
 }
+
+# Route Tables and Routes - The "Roads"
+
+## Public Route Table
+resource "aws_route_table" "public" {
+  vpc_id = aws_vpc.main.id
+
+  tags = { "Name" = "${local.project_tag}-public-rtb" }
+}
+
+### Public Subnet Route Associations - connect the public subnets with the route tables
+resource "aws_route_table_association" "public" {
+  count = var.vpc_public_subnet_count
+
+  subnet_id      = element(aws_subnet.public.*.id, count.index)
+  route_table_id = aws_route_table.public.id
+}
+
+## Private Route Table
+resource "aws_route_table" "private" {
+  vpc_id = aws_vpc.main.id
+
+  tags = { "Name" = "${local.project_tag}-private-rtb" }
+}
+
+### Private Subnet Route Associations - connect the public subnets with the route tables
+resource "aws_route_table_association" "private" {
+  count = var.vpc_private_subnet_count
+
+  subnet_id      = element(aws_subnet.private.*.id, count.index)
+  route_table_id = aws_route_table.private.id
+}
