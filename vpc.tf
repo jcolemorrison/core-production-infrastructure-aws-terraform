@@ -87,3 +87,44 @@ resource "aws_route" "public_internet_access" {
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = aws_internet_gateway.igw.id
 }
+
+# The NAT Elastic IP, required for the NAT Gateway
+resource "aws_eip" "nat" {
+  vpc = true
+
+  tags = { "Name" = "${local.project_tag}-nat-eip" }
+
+  depends_on = [aws_internet_gateway.igw]
+}
+
+# The NAT Gateway - The Connection to the Highway On-Ramp
+resource "aws_nat_gateway" "nat" {
+  allocation_id = aws_eip.nat.id
+  subnet_id     = aws_subnet.public.0.id
+
+  tags = { "Name" = "${local.project_tag}-nat" }
+
+  depends_on = [
+    aws_internet_gateway.igw,
+    aws_eip.nat
+  ]
+}
+
+## Route to the NAT Gateway
+resource "aws_route" "private_internet_access" {
+  route_table_id         = aws_route_table.private.id
+  destination_cidr_block = "0.0.0.0/0"
+  nat_gateway_id         = aws_nat_gateway.nat.id
+}
+
+# Egress Only Gateway (IPv6) - IPV6 "equivalent" of the NAT Gateway
+resource "aws_egress_only_internet_gateway" "eigw" {
+  vpc_id = aws_vpc.main.id
+}
+
+## Route to the Egress Only Internet Gateway
+resource "aws_route" "private_internet_access_ipv6" {
+  route_table_id              = aws_route_table.private.id
+  destination_ipv6_cidr_block = "::/0"
+  egress_only_gateway_id      = aws_egress_only_internet_gateway.eigw.id
+}
