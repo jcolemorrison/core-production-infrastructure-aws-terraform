@@ -128,3 +128,6 @@ resource "aws_route" "private_internet_access_ipv6" {
   destination_ipv6_cidr_block = "::/0"
   egress_only_gateway_id      = aws_egress_only_internet_gateway.eigw.id
 }
+
+# NOTE: the default Network ACLs are used so there is no code for them here.
+# Terraform Docs on NACLs: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/network_acl
