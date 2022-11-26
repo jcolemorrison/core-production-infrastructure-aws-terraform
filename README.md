@@ -17,7 +17,7 @@ Everything is written using Infrastructure as Code via Terraform so that you can
 
 ## The Architecture Analogy
 
-![The Servers and Compute to City Analogy](images/core-building-blocks-2.png)
+![The Servers and Compute to City Analogy](images/core-building-blocks-3.png)
 
 The Different States in Descending Order:
 
